@@ -1,0 +1,373 @@
+2017/08/26 15:02:36 [Info][main.go:26(main)] 
+[123 10 32 32 34 83 101 114 118 101 114 34 58 32 123 10 32 32 32 34 76 105 115 116 101 110 34 58 32 34 58 57 48 48 49 34 10 32 32 125 44 10 32 32 34 68 98 34 58 32 123 10 32 32 32 34 83 114 99 34 58 32 34 114 111 111 116 58 64 116 99 112 40 108 111 99 97 108 104 111 115 116 58 51 51 48 54 41 47 100 98 95 119 101 98 115 101 114 118 101 114 63 99 104 97 114 115 101 116 61 117 116 102 56 92 117 48 48 50 54 114 101 97 100 84 105 109 101 111 117 116 61 53 115 34 44 10 32 32 32 34 77 97 120 67 111 110 110 34 58 32 50 48 10 32 32 125 10 32 125]
+2017/08/26 15:02:45 [Info][main.go:26(main)] 
+{
+  "Server": {
+   "Listen": ":9001"
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 11:08:17 [Info][main.go:26(main)] 
+{
+  "Server": {
+   "Listen": ":9001"
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:41:53 [Info][main.go:26(main)] 
+{
+  "Server": {
+   "Listen": ":9001"
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:42:40 [Info][main.go:31(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:42:56 [Info][main.go:31(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:43:41 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:44:09 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:44:32 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:45:08 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:46:03 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:47:18 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:47:39 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:47:49 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:48:13 [Info][main.go:31(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:49:00 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:49:02 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
+2017/08/27 15:49:12 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:50:35 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:50:37 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
+2017/08/27 15:51:45 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/db_webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:51:45 [Error][main.go:34(main)] init db err:Error 1049: Unknown database 'db_webserver'
+2017/08/27 15:55:30 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:56:23 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:57:10 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:57:46 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 15:57:46 [Info][main.go:61(startServer)] start web server.
+2017/08/27 16:16:01 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 16:16:01 [Info][main.go:61(startServer)] start web server.
+2017/08/27 16:17:50 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 16:17:50 [Info][main.go:61(startServer)] start web server.
+2017/08/27 16:19:09 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 16:19:09 [Info][main.go:62(startServer)] start web server.
+2017/08/27 16:19:24 [Debug][authority.go:23(GetAuthority)] 127.0.0.1 try get authority.
+2017/08/27 16:19:24 [Info][main.go:93(requestHandler)] auth is {%!s(bool=false)}
+2017/08/27 16:19:26 [Debug][authority.go:23(GetAuthority)] 127.0.0.1 try get authority.
+2017/08/27 16:19:26 [Info][main.go:93(requestHandler)] auth is {%!s(bool=false)}
+2017/08/27 16:19:33 [Debug][authority.go:23(GetAuthority)] 127.0.0.1 try get authority.
+2017/08/27 16:19:33 [Info][main.go:93(requestHandler)] auth is {%!s(bool=false)}
+2017/08/27 16:19:38 [Debug][authority.go:23(GetAuthority)] 127.0.0.1 try get authority.
+2017/08/27 16:19:38 [Info][main.go:93(requestHandler)] auth is {%!s(bool=false)}
+2017/08/27 16:19:56 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/08/27 16:19:56 [Info][main.go:62(startServer)] start web server.
+2017/08/27 16:20:00 [Debug][authority.go:23(GetAuthority)] 127.0.0.1 try get authority.
+2017/08/27 16:20:00 [Info][main.go:93(requestHandler)] auth is {false}
+2017/09/11 21:16:47 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/11 21:16:49 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
+2017/09/16 19:40:25 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/16 19:40:29 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/16 19:44:30 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/16 19:44:32 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
+2017/09/16 19:48:05 [Info][main.go:28(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/16 19:48:07 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
+2017/09/16 19:48:31 [Info][main.go:30(main)] 
+{
+  "Server": {
+   "Listen": ":9001",
+   "Compress": 0
+  },
+  "Db": {
+   "Src": "root:@tcp(localhost:3306)/webserver?charset=utf8\u0026readTimeout=5s",
+   "MaxConn": 20
+  }
+ }
+2017/09/16 19:48:33 [Error][main.go:36(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
