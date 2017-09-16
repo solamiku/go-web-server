@@ -1,7 +1,0 @@
-2017/08/27 15:49:02 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
-2017/08/27 15:50:37 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
-2017/08/27 15:51:45 [Error][main.go:34(main)] init db err:Error 1049: Unknown database 'db_webserver'
-2017/09/11 21:16:49 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
-2017/09/16 19:44:32 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
-2017/09/16 19:48:07 [Error][main.go:34(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
-2017/09/16 19:48:33 [Error][main.go:36(main)] init db err:dial tcp [::1]:3306: connectex: No connection could be made because the target machine actively refused it.
