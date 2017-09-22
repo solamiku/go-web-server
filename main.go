@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"webserver/db"
 	"webserver/router"
 
@@ -17,6 +18,7 @@ func main() {
 	//init config
 	err = initConfig()
 	if err != nil {
+		log.Printf("init config err:%v", err)
 		return
 	}
 	jdata, err := json.MarshalIndent(cfg.G, " ", " ")
