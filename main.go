@@ -55,48 +55,18 @@ func initConfig() error {
 
 //start web server use fasthttp
 func startServer() {
-	r := requestHandler
+	r := router.RequestHandler
 	if cfg.G.Server.Compress == 1 {
 		r = fasthttp.CompressHandler(r)
+	}
+
+	if router.InitTemplate() != nil {
+		seelog.Errorf("init router template err")
+		return
 	}
 
 	seelog.Infof("start web server.")
 	if err := fasthttp.ListenAndServe(cfg.G.Server.Listen, r); err != nil {
 		seelog.Errorf("Error in ListenAndServe: %s", err)
-	}
-}
-
-func rewritePath(ctx *fasthttp.RequestCtx) []byte {
-	ctx.URI().SetPathBytes(ctx.Path()[7:])
-	return ctx.Path()
-}
-
-func requestHandler(ctx *fasthttp.RequestCtx) {
-	fs := &fasthttp.FS{
-		Root:               "./public",
-		GenerateIndexPages: true,
-		Compress:           false,
-		AcceptByteRange:    false,
-		PathRewrite:        rewritePath,
-	}
-	fsHandler := fs.NewRequestHandler()
-	path := string(ctx.Path())
-
-	if len(path) > 7 && string(path[:7]) == "/public" {
-		fsHandler(ctx)
-		return
-	}
-
-	//return user auth.
-	a := router.GetAuthority(ctx)
-	seelog.Infof("auth is %v", a)
-
-	//set content-type
-	ctx.Response.Header.Set("Content-Type", "text/html;charset=utf-8")
-
-	switch path {
-	case "/":
-	default:
-		ctx.Error("Unsupported path", fasthttp.StatusNotFound)
 	}
 }

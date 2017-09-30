@@ -1,0 +1,7 @@
+{{define "header_start"}}
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta charset="UTF-8">
+		<script type="./public/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="./public/bootstrap/css/bootstrap.min.css">
+{{end}}

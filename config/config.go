@@ -16,6 +16,11 @@ type Config struct {
 		Src     string `xml:"src"`
 		MaxConn int    `xml:"max_conn"`
 	} `xml:"db"`
+	Template struct {
+		Components []string `xml:"components>component"`
+		Default    string   `xml:"default"`
+		Viewroot   string   `xml:"viewroot"`
+	} `xml:"template"`
 }
 
 //G export global config

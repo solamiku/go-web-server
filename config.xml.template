@@ -3,4 +3,20 @@
 	<server>
         <listen></listen>
 	</server>
+	
+	<db>
+		<src><![CDATA[user:pwd@tcp(host:3306)/database?charset=utf8&readTimeout=5s]]></src>
+		<max_conn>50</max_conn>
+	</db>
+	
+	<template>
+		<!-- 指定默认模板 当找不到可解析模板时默认输出该模板-->
+		<default>./view/default.html</default>
+		<!-- 默认的view根 -->
+		<viewroot>./view/</viewroot>
+		<!-- 组件库模板 -->
+		<components>
+			<component></component>
+		</components>
+	</template>
 </config>

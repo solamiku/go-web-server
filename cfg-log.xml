@@ -6,7 +6,6 @@
             <rollingfile formatid="main" type="size" filename="./log/server.log" maxsize="1024000000" maxrolls="2"/>
         </filter>
         <filter levels="error,critical">
-            <console />
             <file path="./log/server.err.log"/>
         </filter>
 	</outputs>
