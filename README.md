@@ -27,3 +27,7 @@
         + ...       其余第三方库等
     - router        go-路由功能相关
     - view          html模板
+        + components 组件模板-此目录内模板会自动加载为组件
+
+### Router目录详细说明
+router有固定init顺序，必须保证0handler.go为第一个编译顺序。其余router在各自init函数内执行。

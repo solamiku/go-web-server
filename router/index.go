@@ -8,8 +8,10 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-func Index(ctx *fasthttp.RequestCtx) {
-	seelog.Debugf("%s enter router.", ctx.RemoteIP())
-	t := templateParse("index.html")
-	t.Execute(ctx, map[string]string{})
+func init() {
+	Router.get("/", func(ctx *fasthttp.RequestCtx) {
+		seelog.Debugf("%s enter router.", ctx.RemoteIP())
+		t := templateParse("index.html")
+		t.Execute(ctx, map[string]string{})
+	})
 }

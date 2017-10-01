@@ -55,7 +55,11 @@ func initConfig() error {
 
 //start web server use fasthttp
 func startServer() {
-	r := router.RequestHandler
+	r, err := router.Init()
+	if err != nil {
+		seelog.Errorf("router init err:%v", err)
+		return
+	}
 	if cfg.G.Server.Compress == 1 {
 		r = fasthttp.CompressHandler(r)
 	}

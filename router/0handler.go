@@ -8,6 +8,17 @@ const (
 	AUTH = "authority"
 )
 
+type RouterManager struct {
+	sGet  map[string]func(*fasthttp.RequestCtx)
+	sPost map[string]func(*fasthttp.RequestCtx)
+}
+
+func (rm *RouterManager) get(p string, f func(*fasthttp.RequestCtx)) {
+	rm.sGet[p] = f
+}
+
+var Router *RouterManager
+
 // Authority struct
 type Authority struct {
 	Admin bool
@@ -33,7 +44,17 @@ func getAuthority(ctx *fasthttp.RequestCtx) Authority {
 	return auth
 }
 
-func RequestHandler(ctx *fasthttp.RequestCtx) {
+func init() {
+	Router = &RouterManager{}
+	Router.sGet = make(map[string]func(*fasthttp.RequestCtx))
+	Router.sPost = make(map[string]func(*fasthttp.RequestCtx))
+}
+
+func Init() (fasthttp.RequestHandler, error) {
+	return requestHandler, nil
+}
+
+func requestHandler(ctx *fasthttp.RequestCtx) {
 	rewritePath := func(ctx *fasthttp.RequestCtx) []byte {
 		ctx.URI().SetPathBytes(ctx.Path()[7:])
 		return ctx.Path()
@@ -59,10 +80,21 @@ func RequestHandler(ctx *fasthttp.RequestCtx) {
 	//set content-type
 	ctx.Response.Header.Set("Content-Type", "text/html;charset=utf-8")
 
-	switch path {
-	case "/":
-		Index(ctx)
-	default:
-		ctx.Error("Unsupported path", fasthttp.StatusNotFound)
+	switch string(ctx.Method()) {
+	case "GET":
+		if f, ok := Router.sGet[path]; ok {
+			f(ctx)
+			return
+		}
+	case "POSE":
+		if f, ok := Router.sGet[path]; ok {
+			f(ctx)
+			return
+		}
 	}
+	ctx.Error("Unsupported path", fasthttp.StatusNotFound)
 }
+
+/*
+	router interface
+*/
