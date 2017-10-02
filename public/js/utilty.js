@@ -113,11 +113,11 @@ function confirmbox(boxinfo, f) {
 						<h4 class="modal-title" id="confirm_modal_title">Are you sure???</h4>
 					</div>
 					<div class="modal-body">
-						<p id="confirm_modal_content">Are you sure you want to delete (this)?</p>
-						<div class="row">
+						<p id="confirm_modal_content" class="text-center lead">Are you sure you want to delete (this)?</p>
+						<div class="row" style="margin-top:50px">
 						  <div class="col-12-xs text-center">
-								<button class="btn btn-success btn-md" id="confirm_modal_yes">Yes</button>
-								<button class="btn btn-danger btn-md" id="confirm_modal_no">No</button>
+								<button class="btn btn-success btn-md" id="confirm_modal_yes" style="width:150px;">Yes</button>
+								<button class="btn btn-danger btn-md" id="confirm_modal_no" style="width:150px;margin-left:100px">No</button>
 							</div>
 						</div>
 					</div>
