@@ -2,6 +2,16 @@
 <config>
 	<server>
         <listen></listen>
+		<key></key>
+		<https>
+			<open>0</open>
+			<crt></crt>
+			<key></key>
+		</https>
+		<!-- 加密串-->
+		<encrypt_key>10KncU7_</encrypt_key>
+		<!-- 拼接串-->
+		<padding_key>ttest</padding_key>
 	</server>
 	
 	<db>

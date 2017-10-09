@@ -10,10 +10,12 @@
 
 * https://github.com/go-sql-driver/mysql mysql
 * https://github.com/cihub/seelog 日志库
+* https://github.com/bitly/go-simplejson 动态json库
 * https://github.com/valyala/fasthttp fasthttp
 	- https://github.com/klauspost/compress fasthttp需要的compress库
 		- https://github.com/klauspost/cpuid compress需要的cpuid库
 	- https://github.com/valyala/bytebufferpool fasthttp需要的bytebufferpool库
+* https://github.com/kataras/go-sessions 支持原生和fasthttp的session库 内置vendor依赖
 
 ### 目录结构
 * webserver
@@ -31,3 +33,11 @@
 
 ### Router目录详细说明
 router有固定init顺序，必须保证0handler.go为第一个编译顺序。其余router在各自init函数内执行。
+
+### 特殊说明
+go-sessions支持各种存储扩展，但是从实现上来看有点小瑕疵从session.go里面可以追踪session的管理可以看实现。
+
+### https相关
+https测试用证书生成方式:
+1.openssl genrsa -out server.key 2048
+2.openssl req -new -x509 -key server.key -out server.crt -days 365

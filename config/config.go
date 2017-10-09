@@ -9,8 +9,15 @@ import (
 //Config strcut
 type Config struct {
 	Server struct {
-		Listen   string `xml:"listen"`
-		Compress int    `xml:"compress"`
+		Listen     string `xml:"listen"`
+		Compress   int    `xml:"compress"`
+		EncryptKey string `xml:"encrypt_key"`
+		PaddingKey string `xml:"padding_key"`
+		Https      struct {
+			Open int    `xml:"open"`
+			Crt  string `xml:"crt"`
+			Key  string `xml:"key"`
+		} `xml:"https"`
 	} `xml:"server"`
 	Db struct {
 		Src     string `xml:"src"`

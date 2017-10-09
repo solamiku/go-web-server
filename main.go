@@ -70,7 +70,15 @@ func startServer() {
 	}
 
 	seelog.Infof("start web server.")
-	if err := fasthttp.ListenAndServe(cfg.G.Server.Listen, r); err != nil {
-		seelog.Errorf("Error in ListenAndServe: %s", err)
+	if cfg.G.Server.Https.Open == 0 {
+		if err := fasthttp.ListenAndServe(cfg.G.Server.Listen, r); err != nil {
+			seelog.Errorf("Error in ListenAndServe: %v", err)
+		}
+	} else {
+		if err := fasthttp.ListenAndServeTLS(
+			cfg.G.Server.Listen, cfg.G.Server.Https.Crt,
+			cfg.G.Server.Https.Key, r); err != nil {
+			seelog.Errorf("Error in ListenAndServeTLS: %v", err)
+		}
 	}
 }

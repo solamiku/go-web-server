@@ -40,10 +40,10 @@
                                 <div class="social-buttons">
                                     <div class="iconSpecial"><i class="glyphicon glyphicon-user"></i>Login</div>
                                 </div>                             
-                                <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+                                <form class="form" role="form" onsubmit="login(); return false;" accept-charset="UTF-8" id="login-nav">
                                     <div class="form-group">
                                         <label class="sr-only" for="username">usename</label>
-                                        <input type="email" class="form-control" id="username" placeholder="username" required>
+                                        <input type="text" class="form-control" id="username" placeholder="username" required>
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="password">password</label>
@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="checkbox text-dark">
                                         <label>
-                                        <input type="checkbox"> Remember me
+                                        <input type="checkbox" id="remember" name="remember" checked="true" aria-label="Checkbox for following text input"> Remember me
                                         </label>
                                     </div>
                                 </form>
