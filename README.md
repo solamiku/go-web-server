@@ -32,12 +32,12 @@
         + components 组件模板-此目录内模板会自动加载为组件
 
 ### Router目录详细说明
-router有固定init顺序，必须保证0handler.go为第一个编译顺序。其余router在各自init函数内执行。
+* router有固定init顺序，必须保证0handler.go为第一个编译顺序。其余router在各自init函数内执行。
 
 ### 特殊说明
-go-sessions支持各种存储扩展，但是从实现上来看有点小瑕疵从session.go里面可以追踪session的管理可以看实现。
+* go-sessions支持各种存储扩展，但是从实现上来看有点小瑕疵从session.go里面可以追踪session的管理可以看实现。
 
 ### https相关
 https测试用证书生成方式:
-1.openssl genrsa -out server.key 2048
-2.openssl req -new -x509 -key server.key -out server.crt -days 365
+1. openssl genrsa -out server.key 2048
+2. openssl req -new -x509 -key server.key -out server.crt -days 365
