@@ -9,7 +9,7 @@ import (
 	cfg "webserver/config"
 
 	"github.com/cihub/seelog"
-	_ "github.com/mysql"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/valyala/fasthttp"
 )
 

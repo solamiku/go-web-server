@@ -7,15 +7,13 @@
 
 
 ### 以下是需要包含的第三方库
-
+采用glide管理第三方库
 * https://github.com/go-sql-driver/mysql mysql
+* https://github.com/go-xorm/xorm xorm库
 * https://github.com/cihub/seelog 日志库
 * https://github.com/bitly/go-simplejson 动态json库
 * https://github.com/valyala/fasthttp fasthttp
-	- https://github.com/klauspost/compress fasthttp需要的compress库
-		- https://github.com/klauspost/cpuid compress需要的cpuid库
-	- https://github.com/valyala/bytebufferpool fasthttp需要的bytebufferpool库
-* https://github.com/kataras/go-sessions 支持原生和fasthttp的session库 内置vendor依赖
+* https://github.com/kataras/go-sessions 支持原生和fasthttp的session库 
 
 ### 目录结构
 * webserver
