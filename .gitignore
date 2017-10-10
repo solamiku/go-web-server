@@ -2,3 +2,4 @@ config.xml
 *.exe
 log
 server.*
+vendor
