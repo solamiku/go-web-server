@@ -7,7 +7,11 @@ function login() {
 		pass: password,
 		remember: remember.checked,
 	}, function(data) {
-		dispatch("login", data);
+		if (data == "") {
+			location.href = "/";
+		} else {
+			dispatch("login", data);
+		}
 	});
 };
 

@@ -41,6 +41,12 @@ func init() {
 		}
 		processLogin(ctx, sess, u, re == "true")
 	})
+
+	Router.get("/logout", func(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
+		delCookie(ctx, SKEY_AUTOLOGIN)
+		sess.Clear()
+		ctx.Redirect("/", 200)
+	})
 }
 
 func getPwdMd5Str(pwd string) string {
