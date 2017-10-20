@@ -1,11 +1,12 @@
 package router
 
 import (
+	"bufio"
+	"fmt"
 	"time"
 
 	"github.com/bitly/go-simplejson"
 	"github.com/cihub/seelog"
-	"github.com/kataras/go-sessions"
 	"github.com/valyala/fasthttp"
 )
 
@@ -169,4 +170,23 @@ func getAuthority(sess *sessions.Session, auth uint64) bool {
 		return false
 	}
 	return IsMask(p, auth)
+}
+
+/*
+	chunk send msg
+*/
+
+type ChunkSendFunc func(string, ...interface{})
+
+//chunk send msg to response
+func chunkSendMsg(ctx *fasthttp.RequestCtx, f func(ChunkSendFunc)) {
+	ctx.SetBodyStreamWriter(func(w *bufio.Writer) {
+		send := func(msg string, argv ...interface{}) {
+			fmt.Fprintf(w, msg, argv...)
+			if err := w.Flush(); err != nil {
+				seelog.Errorf("send chunk msg %s err", msg, err)
+			}
+		}
+		f(send)
+	})
 }
