@@ -9,7 +9,7 @@ import (
 	cfg "webserver/config"
 
 	"github.com/cihub/seelog"
-	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/valyala/fasthttp"
 )
 
@@ -21,20 +21,22 @@ func main() {
 		log.Printf("init config err:%v", err)
 		return
 	}
+
+	defer seelog.Flush()
 	jdata, err := json.MarshalIndent(cfg.G, " ", " ")
 	if err != nil {
 		seelog.Errorf("marshal config err:%v", err)
 		return
 	}
 	seelog.Info("\n", string(jdata))
-	defer seelog.Flush()
 
 	//init db engine
-	err = db.LoadDb(cfg.G.Db.Src, cfg.G.Db.MaxConn)
+	err = db.LoadSqliteDb(cfg.G.Db.Src, cfg.G.Db.MaxConn)
 	if err != nil {
 		seelog.Errorf("init db err:%v", err)
 		return
 	}
+
 	//start http server
 	startServer()
 }
@@ -62,11 +64,6 @@ func startServer() {
 	}
 	if cfg.G.Server.Compress == 1 {
 		r = fasthttp.CompressHandler(r)
-	}
-
-	if router.InitTemplate() != nil {
-		seelog.Errorf("init router template err")
-		return
 	}
 
 	seelog.Infof("start web server.")

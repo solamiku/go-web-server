@@ -7,83 +7,9 @@ import (
 
 	"github.com/bitly/go-simplejson"
 	"github.com/cihub/seelog"
+	sessions "github.com/kataras/go-sessions"
 	"github.com/valyala/fasthttp"
 )
-
-var Sess *sessions.Sessions
-
-const (
-	AUTH = "authority"
-)
-
-type RouterManager struct {
-	sGet  map[string]func(*fasthttp.RequestCtx, *sessions.Session)
-	sPost map[string]func(*fasthttp.RequestCtx, *sessions.Session)
-}
-
-func (rm *RouterManager) get(p string, f func(*fasthttp.RequestCtx, *sessions.Session)) {
-	rm.sGet[p] = f
-}
-
-func (rm *RouterManager) post(p string, f func(*fasthttp.RequestCtx, *sessions.Session)) {
-	rm.sPost[p] = f
-}
-
-var Router *RouterManager
-
-func init() {
-	Router = &RouterManager{}
-	Router.sGet = make(map[string]func(*fasthttp.RequestCtx, *sessions.Session))
-	Router.sPost = make(map[string]func(*fasthttp.RequestCtx, *sessions.Session))
-	Sess = sessions.New(sessions.Config{
-		Cookie:  "mysessionId",
-		Expires: 3 * time.Hour,
-	})
-}
-
-func Init() (fasthttp.RequestHandler, error) {
-	return requestHandler, nil
-}
-
-func requestHandler(ctx *fasthttp.RequestCtx) {
-	rewritePath := func(ctx *fasthttp.RequestCtx) []byte {
-		ctx.URI().SetPathBytes(ctx.Path()[7:])
-		return ctx.Path()
-	}
-	fs := &fasthttp.FS{
-		Root:               "./public",
-		GenerateIndexPages: true,
-		Compress:           false,
-		AcceptByteRange:    false,
-		PathRewrite:        rewritePath,
-	}
-	fsHandler := fs.NewRequestHandler()
-	path := string(ctx.Path())
-
-	if len(path) > 7 && string(path[:7]) == "/public" {
-		fsHandler(ctx)
-		return
-	}
-	//set content-type
-	ctx.Response.Header.Set("Content-Type", "text/html;charset=utf-8")
-
-	sess := Sess.StartFasthttp(ctx)
-	autoLogin(ctx, sess)
-	seelog.Debugf("ip:%s path:%s method:%s", ctx.RemoteIP().String(), path, ctx.Method())
-	switch string(ctx.Method()) {
-	case "GET":
-		if f, ok := Router.sGet[path]; ok {
-			f(ctx, sess)
-			return
-		}
-	case "POST":
-		if f, ok := Router.sPost[path]; ok {
-			f(ctx, sess)
-			return
-		}
-	}
-	ctx.Error("Unsupported path", fasthttp.StatusNotFound)
-}
 
 func SendErr(ctx *fasthttp.RequestCtx, msg string) {
 	jDat := simplejson.New()
@@ -147,10 +73,6 @@ func delCookie(ctx *fasthttp.RequestCtx, sName string) {
 /*
 	Authority
 */
-const (
-	POWER_ADMIN = 0
-)
-
 //mask and unmask
 func Mask(f, n uint64) uint64 {
 	f = f | (1 << n)
@@ -164,12 +86,9 @@ func IsMask(f, n uint64) bool {
 	return (f & (1 << n)) != 0
 }
 
-func getAuthority(sess *sessions.Session, auth uint64) bool {
-	p, ok := sess.Get(SKEY_POWER).(uint64)
-	if !ok {
-		return false
-	}
-	return IsMask(p, auth)
+func GetAuthority(sess *sessions.Session, keyName string, auth uint64) bool {
+	p, _ := sess.GetInt64(keyName)
+	return IsMask(uint64(p), auth)
 }
 
 /*

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 	<server>
-        <listen></listen>
+        <listen>:1234</listen>
 		<key></key>
 		<https>
 			<open>0</open>
@@ -15,18 +15,23 @@
 	</server>
 	
 	<db>
-		<src><![CDATA[user:pwd@tcp(host:3306)/database?charset=utf8&readTimeout=5s]]></src>
+		<src>users.db</src>
 		<max_conn>50</max_conn>
 	</db>
 	
+	<!-- 组件库模板 -->
 	<template>
-		<!-- 指定默认模板 当找不到可解析模板时默认输出该模板-->
-		<default>./view/default.html</default>
-		<!-- 默认的view根 -->
-		<viewroot>./view/</viewroot>
-		<!-- 组件库模板 -->
-		<components>
-			<component></component>
-		</components>
+		<views>
+			<view src="./view/index.html">
+				<component>./view/components/indexbasic/header_start.html</component>
+				<component>./view/components/indexbasic/header_end.html</component>
+				<component>./view/components/indexbasic/navbar.html</component>
+			</view>
+			<view src="./view/default.html">
+				<component>./view/components/defaultbasic/header_start.html</component>
+				<component>./view/components/defaultbasic/header_end.html</component>
+				<component>./view/components/defaultbasic/navbar.html</component>
+			</view>
+		</views>
 	</template>
 </config>

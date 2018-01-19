@@ -24,9 +24,10 @@ type Config struct {
 		MaxConn int    `xml:"max_conn"`
 	} `xml:"db"`
 	Template struct {
-		Components []string `xml:"components>component"`
-		Default    string   `xml:"default"`
-		Viewroot   string   `xml:"viewroot"`
+		Views []struct {
+			Src        string   `xml:"src,attr"`
+			Components []string `xml:"component"`
+		} `xml:"views>view"`
 	} `xml:"template"`
 }
 

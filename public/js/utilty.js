@@ -113,11 +113,11 @@ function confirmbox(boxinfo, f) {
 						<h4 class="modal-title" id="confirm_modal_title">Are you sure???</h4>
 					</div>
 					<div class="modal-body">
-						<p id="confirm_modal_content" class="text-center lead">Are you sure you want to delete (this)?</p>
-						<div class="row" style="margin-top:50px">
+						<p id="confirm_modal_content">Are you sure you want to delete (this)?</p>
+						<div class="row">
 						  <div class="col-12-xs text-center">
-								<button class="btn btn-success btn-md" id="confirm_modal_yes" style="width:150px;">Yes</button>
-								<button class="btn btn-danger btn-md" id="confirm_modal_no" style="width:150px;margin-left:100px">No</button>
+								<button class="btn btn-success btn-md" id="confirm_modal_yes">Yes</button>
+								<button class="btn btn-danger btn-md" id="confirm_modal_no">No</button>
 							</div>
 						</div>
 					</div>
@@ -207,8 +207,16 @@ function inputModalbox(args, callback, onSelect) {
 				case "checkbox":
 					val = obj.parent().hasClass("active");
 					break;
+				case "radio":
+					obj.each(function(idx) {
+						if ($(this).parent().hasClass("active")) {
+							val = idx;
+						}
+					});
+					break;
 				default:
 					val = obj.val();
+					break;
 			}
 			datas.push(val);
 		}
@@ -224,6 +232,7 @@ function inputModalbox(args, callback, onSelect) {
 		inputmodal.find("#input_modal_title").html(args.title);
 	}
 
+
 	//inputs
 	var focusObj;
 	if (args.inputs) {
@@ -231,60 +240,25 @@ function inputModalbox(args, callback, onSelect) {
 			var ops = args.inputs[i];
 			switch (ops.type) {
 				case "select":
-					var op = $("<div class=\"row\"><div class=\"col-xs-1\"></div></div>").appendTo(form);
-					var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
-					var sdiv = $("<div class=\"col-xs-6\"><select class=\"selectpicker\" data-live-search=\"true\"></select></div>").appendTo(op);
-					var select = sdiv.children("select");
-					for (var i in ops.v) {
-						var o = $("<option value=\"%v\" data-subtext=\"%v\">%v</option>".format(ops.v[i].id, ops.v[i].id, ops.v[i].val)).appendTo(select);
-						if (ops.v[i].id == ops.s) {
-							o.attr("selected", "selected");
-						}
-					}
+					modalInputAddSelect(form, ops);
 					break;
 				case "checkbox":
-					var op = $("<div class=\"row\"><div class=\"col-xs-1\"></div></div>").appendTo(form);
-					var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
-					var input = $(`
-						<div class=\"col-xs-6 btn-group\" data-toggle=\"buttons\">
-							<label class=\"btn btn-default %v\">
-								<input type=\"checkbox\" autocomplete=\"off\">
-								<span class=\"glyphicon glyphicon-ok\"></span>
-							</label>
-						</div>`.format(ops.v == "true" ? "active" : "")).appendTo(op);
+					modalInputAddCheckbox(form, ops);
+					break;
+				case "radio":
+					modalInputAddRadio(form, ops);
 					break;
 				case "textarea":
-					var op = $("<div class=\"row\"></div>").appendTo(form);
-					var textarea = $("<textarea style=\"margin-left:20px\"></textarea>").appendTo(op);
-					var size = {
-						w: 550,
-						h: 400
-					}
-					if (ops.size) {
-						size = ops.size;
-					}
-					textarea.height(size.h);
-					textarea.width(size.w);
-					if (ops.v) {
-						textarea.val(ops.v);
-					}
+					var textarea = modalInputAddTextArea(form, ops);
 					if (!focusObj) {
 						focusObj = textarea;
-					}
+					};
 					break;
 				case "input":
 				default:
-					var op = $("<div class=\"row\" style=\"margin-top:10px\"><div class=\"col-xs-1\"></div></div>").appendTo(form);
-					var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
-					var input = $("<div class=\"col-xs-6\"><input type=\"text\" class=\"form-control input-sm\"/></div>").appendTo(op);
-					if (ops.v) {
-						input.children("input").val(ops.v);
-					}
-					if (ops.p) {
-						input.children("input").attr("placeholder", ops.p);
-					}
+					var input = modalInputAddInput(form, ops);
 					if (!focusObj) {
-						focusObj = input.children("input");
+						focusObj = input;
 					}
 					break;
 			}
@@ -304,7 +278,7 @@ function inputModalbox(args, callback, onSelect) {
 	$('.selectpicker').selectpicker({
 		size: 20,
 	});
-	$('div.bootstrap-select').each(function() {
+	inputmodal.find('div.bootstrap-select').each(function() {
 		var ul = $(this).children(".dropdown-menu").children("ul");
 		ul.children("li").each(function() {
 			var a = $(this).children("a");
@@ -314,7 +288,84 @@ function inputModalbox(args, callback, onSelect) {
 			}
 		})
 	});
+
 	return inputmodal;
+};
+
+function modalInputAddSelect(el, ops) {
+	var op = $("<div class=\"row modal-input-select\"><div class=\"col-xs-1\"></div></div>").appendTo(el);
+	var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
+	var sdiv = $("<div class=\"col-xs-6\"><select class=\"selectpicker\" data-live-search=\"true\"></select></div>").appendTo(op);
+	var select = sdiv.children("select");
+	for (var i in ops.v) {
+		var o = $("<option value=\"%v\" data-subtext=\"%v\">%v</option>".format(ops.v[i].id, ops.v[i].id, ops.v[i].val)).appendTo(select);
+		if (ops.v[i].id == ops.s) {
+			o.attr("selected", "selected");
+		}
+	}
+	if (ops.change) {
+		select.change(ops.change);
+	}
+};
+
+function modalInputAddCheckbox(el, ops) {
+	var op = $("<div class=\"row modal-input-checkbo\"><div class=\"col-xs-1\"></div></div>").appendTo(el);
+	var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
+	var input = $(`
+		<div class=\"col-xs-6 btn-group\" data-toggle=\"buttons\">
+			<label class=\"btn btn-default %v\">
+				<input type=\"checkbox\" autocomplete=\"off\">
+				<span class=\"glyphicon glyphicon-ok\"></span>
+			</label>
+		</div>`.format(ops.v == "true" ? "active" : "")).appendTo(op);
+};
+
+function modalInputAddRadio(el, ops) {
+	var op = $("<div class=\"row modal-input-radio\"><div class=\"col-xs-1\"></div></div>").appendTo(el);
+	var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
+	var input = $(`<div class=\"col-xs-6 btn-group\" data-toggle=\"buttons\"></div>`).appendTo(op);
+	for (var i in ops.v) {
+		var opt = ops.v[i];
+		var optradio = $(`
+			<label class="btn btn-default btn-radio">
+				<input type="radio" autocomplete="off"></input>
+				%s
+			</label>`.format(opt.name)).appendTo(input);
+		if (opt.select) {
+			optradio.addClass("active");
+		}
+	}
+};
+
+function modalInputAddTextArea(el, ops) {
+	var op = $("<div class=\"row modal-input-textarea\"></div>").appendTo(el);
+	var textarea = $("<textarea style=\"margin-left:20px\"></textarea>").appendTo(op);
+	var size = {
+		w: 550,
+		h: 400
+	};
+	if (ops.size) {
+		size = ops.size;
+	};
+	textarea.height(size.h);
+	textarea.width(size.w);
+	if (ops.v) {
+		textarea.val(ops.v);
+	};
+	return textarea;
+};
+
+function modalInputAddInput(el, ops) {
+	var op = $("<div class=\"row modal-input-input\" style=\"margin-top:10px\"><div class=\"col-xs-1\"></div></div>").appendTo(el);
+	var label = $("<div class=\"col-xs-3\"><label>%v : </label></div>".format(ops.t)).appendTo(op);
+	var input = $("<div class=\"col-xs-6\"><input type=\"text\" class=\"form-control input-sm\"/></div>").appendTo(op);
+	if (ops.v) {
+		input.children("input").val(ops.v);
+	}
+	if (ops.p) {
+		input.children("input").attr("placeholder", ops.p);
+	}
+	return input.children("input");
 };
 
 
