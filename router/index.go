@@ -23,7 +23,7 @@ func basicInfo(sess *sessions.Session) map[string]interface{} {
 func init() {
 	Router.get("/", func(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
 		seelog.Debugf("%s enter router.", ctx.RemoteIP())
-		t := templater.GetTemplate("index.html")
+		t := templater.GetTemplate("dashboard.html")
 		t.Execute(ctx, basicInfo(sess))
 	})
 }
