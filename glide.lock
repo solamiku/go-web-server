@@ -1,5 +1,5 @@
 hash: a99422882acc1a2299114b12f709a09f890bbb965c26b3755274f8c4e9e9f681
-updated: 2018-01-19T10:14:18.675367+08:00
+updated: 2018-01-19T16:07:18.588978+08:00
 imports:
 - name: github.com/bitly/go-simplejson
   version: aabad6e819789e569bd6aabf444c935aa9ba1e44
@@ -23,8 +23,14 @@ imports:
   - zlib
 - name: github.com/klauspost/cpuid
   version: ae832f27941af41db13bd6d8efd2493e3b22415a
+- name: github.com/mattn/go-sqlite3
+  version: 6c771bb9887719704b210e87e934f08be014bdb1
 - name: github.com/satori/go.uuid
   version: 36e9d2ebbde5e3f13ab2e25625fd453271d6522e
+- name: github.com/solamiku/go-utility
+  version: 77b4c6087790fddc9150b9487ca9bf63f2abdc33
+  subpackages:
+  - crypto
 - name: github.com/valyala/fasthttp
   version: d42167fd04f636e20b005e9934159e95454233c7
   subpackages:
