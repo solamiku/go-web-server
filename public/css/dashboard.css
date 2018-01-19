@@ -444,7 +444,7 @@ h3 {
   background-color: #f5642d;
   border-left-color: #f5642d;
 }
-.c-menu > ul .c-menu__item i {
+.c-menu > ul .c-menu__item svg {
   flex: 0 0 70px;
   font-size: 18px;
   font-weight: normal;
