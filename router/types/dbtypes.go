@@ -1,4 +1,4 @@
-package router
+package types
 
 const (
 	TAB_USER = "user"
@@ -7,6 +7,6 @@ const (
 type DBUser struct {
 	Uid      uint
 	Username string
-	Password string
+	Passwd   string
 	Power    uint64
 }
