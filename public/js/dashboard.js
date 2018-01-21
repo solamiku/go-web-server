@@ -1,3 +1,17 @@
+/*for animate.css animation end callback*/
+$.fn.extend({
+	animateCss: function(animationName, callback) {
+		var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+		this.addClass('animated ' + animationName).one(animationEnd, function() {
+			$(this).removeClass('animated ' + animationName);
+			if (callback) {
+				callback($(this));
+			}
+		});
+		return this;
+	}
+});
+
 $(function() {
 	var Dashboard = function() {
 		var global = {
@@ -39,9 +53,40 @@ $(function() {
 				});
 
 				$('[data-toggle="tooltip"]').tooltip(global.tooltipOptions);
+
+				RingNotice = new RingNotices($(".ringnotice"));
 			}
 		};
 	}();
 
 	Dashboard.init();
+
+	$("ul.loginbox").on("click", function(e) {
+		e.stopPropagation();
+	});
 });
+
+var RingNotice;
+
+function RingNotices(el) {
+	this._notices = [];
+	this._elNotice = null;
+	this._elNoticeClass = "c-badge c-badge--header-icon animated shake";
+	this._el = el;
+
+	function init() {
+		el.tooltip();
+	};
+	init();
+};
+
+RingNotices.prototype.addNotice = function(str) {
+	this._notices.push(str);
+	var l = this._notices.length;
+	if (this._elNotice) {
+		this._elNotice.remove();
+	}
+	this._elNotice = $("<span></span>").appendTo(this._el);
+	this._elNotice.addClass(this._elNoticeClass);
+	this._elNotice.html(l);
+};

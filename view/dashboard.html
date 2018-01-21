@@ -1,82 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <title>DashBoard</title>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css'>
-    <link rel="stylesheet" href="./public/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./public/css/dashboard.css">
-    <link rel="stylesheet" type="text/css" href="./public/fontawesome/svg-with-js/css/fa-svg-with-js.css">
-    <script src="./public/js/jquery-3.1.0.min.js"></script>
-    <script src="./public/fontawesome/svg-with-js/js/fontawesome-all.min.js"></script>
-    <script src='./public/bootstrap/js/bootstrap.min.js'></script>
-    <script src="./public/js/dashboard.js"></script>
-</head>
+{{template "header_start" .}}
+    <link href="./public/img/icon.png" rel="shortcut icon">
+    <title>dashboard</title>
+{{template "header_end" .}}
 
 <body class="sidebar-is-reduced">
-    <header class="l-header">
-        <div class="l-header__inner clearfix">
-            <div class="c-header-icon js-hamburger">
-                <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
-            </div>
-            <div class="c-header-icon has-dropdown"><span class="c-badge c-badge--header-icon animated shake">12</span><i class="fa fa-bell"></i>
-                <div class="c-dropdown c-dropdown--notifications">
-                    <div class="c-dropdown__header"></div>
-                    <div class="c-dropdown__content"></div>
-                </div>
-            </div>
-            <div class="c-search">
-                <input class="c-search__input u-input" placeholder="Search..." type="text" />
-            </div>
-            <div class="header-icons-group">
-                <div class="c-header-icon logout"><i class="fa fa-power-off"></i></div>
-            </div>
-        </div>
-    </header>
-    <div class="l-sidebar">
-        <div class="logo">
-            <div class="logo__txt">O</div>
-        </div>
-        <div class="l-sidebar__content">
-            <nav class="c-menu js-menu">
-                <ul class="u-list">
-                    <li class="c-menu__item is-active" data-toggle="tooltip" title="Cogs">
-                        <div class="c-menu__item__inner"><i class="fas fa-cogs fa-2x"></i>
-                            <div class="c-menu-item__title"><span>Cogs</span></div>
-                        </div>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="User">
-                        <div class="c-menu__item__inner"><i class="fas fa-user fa-2x"></i>
-                            <div class="c-menu-item__title"><span>User</span></div>
-                        </div>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="File">
-                        <div class="c-menu__item__inner"> <i class="fas fa-file fa-2x"></i>
-                            <div class="c-menu-item__title"><span>File</span></div>
-                        </div>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Cloud">
-                        <div class="c-menu__item__inner"><i class="fas fa-cloud fa-2x"></i>
-                            <div class="c-menu-item__title"><span>Cloud</span></div>
-                        </div>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Server">
-                        <div class="c-menu__item__inner"><i class="fas fa-server fa-2x"></i>
-                            <div class="c-menu-item__title"><span>Server</span></div>
-                        </div>
-                    </li>
-                    <li class="c-menu__item has-submenu" data-toggle="tooltip" title="History">
-                        <div class="c-menu__item__inner"><i class="fas fa-history fa-2x"></i>
-                            <div class="c-menu-item__title"><span>History</span></div>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</body>
+{{template "navbar" .}}
 <main class="l-main">
     <div class="content-wrapper content-wrapper--with-bg">
         <div class="list-group">

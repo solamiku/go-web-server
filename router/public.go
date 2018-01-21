@@ -9,7 +9,11 @@ import (
 	"github.com/cihub/seelog"
 	sessions "github.com/kataras/go-sessions"
 	"github.com/valyala/fasthttp"
+	"encoding/json"
+	"strconv"
 )
+
+type RImap map[string]interface{}
 
 func SendErr(ctx *fasthttp.RequestCtx, msg string) {
 	jDat := simplejson.New()
@@ -23,6 +27,19 @@ func SendErr(ctx *fasthttp.RequestCtx, msg string) {
 	}
 }
 
+func SendMsg(ctx *fasthttp.RequestCtx, info map[string]interface{}) {
+	data, err := json.Marshal(info)
+	if err != nil {
+		seelog.Errorf("%s send info %v err:%v", ctx.RemoteIP().String(), info, err)
+		ctx.SetBodyString("err")
+		return
+	}
+	ctx.SetBody(data)
+}
+
+/*
+	basic cookie opearte like go-sessions's cookie.go
+*/
 /*
 	basic cookie opearte like go-sessions's cookie.go
 */
@@ -39,7 +56,7 @@ func getCookie(ctx *fasthttp.RequestCtx, sName string) string {
 	return ""
 }
 
-func setCookie(ctx *fasthttp.RequestCtx, sName string, value string, configs ...CookieConfig) {
+func setCookieStr(ctx *fasthttp.RequestCtx, sName string, value string, configs ...CookieConfig) {
 	var c CookieConfig
 	if len(configs) > 0 {
 		c = configs[0]
@@ -64,8 +81,33 @@ func setCookie(ctx *fasthttp.RequestCtx, sName string, value string, configs ...
 	ctx.Request.Header.DelCookie(sName)
 }
 
+func setCookieBytes(ctx *fasthttp.RequestCtx, sName string, value []byte, configs ...CookieConfig) {
+	var c CookieConfig
+	if len(configs) > 0 {
+		c = configs[0]
+	}
+	if len(c.Path) == 0 {
+		c.Path = "/"
+	}
+	if len(c.HttpOnly) == 0 {
+		c.HttpOnly = "true"
+	}
+	if c.Expire == 0 {
+		c.Expire = 24 * time.Hour * 7
+	}
+	cNew := fasthttp.AcquireCookie()
+	cNew.SetPath(c.Path)
+	cNew.SetKey(sName)
+	cNew.SetValueBytes(value)
+	cNew.SetHTTPOnly(c.HttpOnly == "true")
+	cNew.SetExpire(time.Now().Add(c.Expire))
+	ctx.Response.Header.SetCookie(cNew)
+	fasthttp.ReleaseCookie(cNew)
+	ctx.Request.Header.DelCookie(sName)
+}
+
 func delCookie(ctx *fasthttp.RequestCtx, sName string) {
-	setCookie(ctx, sName, "", CookieConfig{
+	setCookieStr(ctx, sName, "", CookieConfig{
 		Expire: -1 * time.Minute,
 	})
 }
@@ -108,4 +150,32 @@ func chunkSendMsg(ctx *fasthttp.RequestCtx, f func(ChunkSendFunc)) {
 		}
 		f(send)
 	})
+}
+
+
+/*post参数提取*/
+type PostArgs map[string]string
+
+func (pa PostArgs) GetInt(key string) int {
+	if val, ok := pa[key]; ok {
+		ret, err := strconv.Atoi(val)
+		if err != nil {
+			seelog.Errorf("try to convert key:%s val:%s to int err:%v", key, val, err)
+			return 0
+		}
+		return ret
+	}
+	return 0
+}
+
+func (pa PostArgs) GetString(key string) string {
+	return pa[key]
+}
+
+func GetPostArags(ctx *fasthttp.RequestCtx) PostArgs {
+	pa := make(map[string]string)
+	ctx.PostArgs().VisitAll(func(key, val []byte) {
+		pa[string(key)] = string(val)
+	})
+	return pa
 }

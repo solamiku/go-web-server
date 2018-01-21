@@ -1,0 +1,175 @@
+{{define "navbar"}}
+<script type="text/javascript">
+var loginuser = function() {
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var remember = $("#checkbox-remember")[0] || {};
+    $.post("/login", {
+        user: username,
+        pass: password,
+        remember: remember.checked,
+    }, function(data) {
+        if (data == "") {
+            location.href = "/";
+        } else {
+            dispatch("login", data);
+        }
+    });
+}
+var logout = function() {
+    $("#logoutform").submit();
+};
+</script>
+<style type="text/css">
+/* Hiding the checkbox, but allowing it to be focused */
+
+.badgebox {
+    opacity: 0;
+}
+
+.badgebox+.badge {
+    /* Move the check mark away when unchecked */
+    text-indent: -999999px;
+    /* Makes the badge's width stay the same checked and unchecked */
+    width: 27px;
+}
+
+.badgebox:focus+.badge {
+    /* Set something to make the badge looks focused */
+    /* This really depends on the application, in my case it was: */
+    /* Adding a light border */
+    box-shadow: inset 0px 0px 5px;
+    /* Taking the difference out of the padding */
+}
+
+.badgebox:checked+.badge {
+    /* Move the check mark back when checked */
+    text-indent: 0;
+}
+</style>
+<header class="l-header">
+    <div class="l-header__inner clearfix">
+        <div class="c-header-icon js-hamburger">
+            <div class="hamburger-toggle"><span class="bar-top"></span><span class="bar-mid"></span><span class="bar-bot"></span></div>
+        </div>
+        <div class="c-header-icon has-dropdown ringnotice" data-toggle="tooltip" title="">
+            <i class="fa fa-bell"></i>
+            <div class="c-dropdown c-dropdown--notifications">
+                <div class="c-dropdown__header"></div>
+                <div class="c-dropdown__content"></div>
+            </div>
+        </div>
+        <div class="c-search">
+            <input class="c-search__input u-input" placeholder="Search..." type="text" />
+        </div>
+        <!-- UserLogin-->
+        {{if not .login}}
+        <ul class="nav navbar-nav navbar-right header-icons-group">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-user fa-2x"></i>
+                </a>
+                <ul class="dropdown-menu loginbox">
+                    <li class="data-stopPropagation">
+                        <div class=" row">
+                            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-6">
+                                <img src="./public/img/logo.png" alt="Logo" class="login-logo">
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6  ">
+                                <span class="singtext"> Sign in </span>
+                            </div>
+                        </div>
+                        <div class=" row loginbox_content">
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-user"></span>
+                                </span>
+                                <input class="form-control" id="username" type="text" placeholder="User name">
+                            </div>
+                            <br>
+                            <div class="input-group input-group-sm">
+                                <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                                </span>
+                                <input class="form-control" id="password" type="password" placeholder="Password">
+                            </div>
+                            <div class="input-group input-group-sm remember">
+                                <label for="checkbox-remember" class="btn btn-primary">Remember me
+                                    <input type="checkbox" id="checkbox-remember" class="badgebox"><span class="badge">&check;</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-lg-8 col-md-8  col-sm-8 col-xs-7 forgotpassword ">
+                                <a href="#"> Forgot Username / Password?</a>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4  col-xs-5 ">
+                                <a href="#" onclick="loginuser()" class=" btn btn-default submit-btn">Login <span class="glyphicon glyphicon-log-in"></span> </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-4 "></div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {{else}}
+        <ul class="nav navbar-nav navbar-right header-icons-group">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        欢迎您，{{.user}}<span class="caret"></span>
+                    </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <form class="form" role="form" action="/logout" accept-charset="UTF-8" id="logoutform"></form>
+                        <a href="#" onclick="logout()">
+                        <i class="fas fa-user"></i>  Logout
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        {{end}}
+    </div>
+</header>
+<div class="l-sidebar">
+    <div class="logo">
+        <div class="logo__txt">Test</div>
+    </div>
+    <div class="l-sidebar__content">
+        <nav class="c-menu js-menu">
+            <ul class="u-list">
+                <li class="c-menu__item is-active" data-toggle="tooltip" title="Cogs">
+                    <div class="c-menu__item__inner"><i class="fas fa-cogs fa-2x"></i>
+                        <div class="c-menu-item__title"><span>Cogs</span></div>
+                    </div>
+                </li>
+                <li class="c-menu__item has-submenu" data-toggle="tooltip" title="User">
+                    <div class="c-menu__item__inner"><i class="fas fa-user fa-2x"></i>
+                        <div class="c-menu-item__title"><span>User</span></div>
+                    </div>
+                </li>
+                <li class="c-menu__item has-submenu" data-toggle="tooltip" title="File">
+                    <div class="c-menu__item__inner"> <i class="fas fa-file fa-2x"></i>
+                        <div class="c-menu-item__title"><span>File</span></div>
+                    </div>
+                </li>
+                <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Cloud">
+                    <div class="c-menu__item__inner"><i class="fas fa-cloud fa-2x"></i>
+                        <div class="c-menu-item__title"><span>Cloud</span></div>
+                    </div>
+                </li>
+                <li class="c-menu__item has-submenu" data-toggle="tooltip" title="Server">
+                    <div class="c-menu__item__inner"><i class="fas fa-server fa-2x"></i>
+                        <div class="c-menu-item__title"><span>Server</span></div>
+                    </div>
+                </li>
+                <li class="c-menu__item has-submenu" data-toggle="tooltip" title="History">
+                    <div class="c-menu__item__inner"><i class="fas fa-history fa-2x"></i>
+                        <div class="c-menu-item__title"><span>History</span></div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{{end}}
