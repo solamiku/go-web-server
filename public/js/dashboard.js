@@ -22,13 +22,26 @@ $(function() {
 		};
 
 		var menuChangeActive = function menuChangeActive(el) {
-			var hasSubmenu = $(el).hasClass("has-submenu");
+			el = $(el);
+			var hasSubmenu = el.hasClass("has-submenu");
 			$(global.menuClass + " .is-active").removeClass("is-active");
-			$(el).addClass("is-active");
+			el.addClass("is-active");
 
 			// if (hasSubmenu) {
 			// 	$(el).find("ul").slideDown();
 			// }
+			
+			//show tab
+			var cur = $(".content-tab-active");
+			var to = $(el.attr("href"));
+			if (cur == to) {
+				return;
+			}
+			cur.removeClass("content-tab-active");
+			cur.addClass("content-tab");
+			to.removeClass("content-tab");
+			to.addClass("content-tab-active");
+			to.addClass("animated fadeIn");
 		};
 
 		var sidebarChangeWidth = function sidebarChangeWidth() {
@@ -64,6 +77,8 @@ $(function() {
 	$("ul.loginbox").on("click", function(e) {
 		e.stopPropagation();
 	});
+
+	// $(".content-tab,.content-tab-active").addClass("animated fadeIn");
 });
 
 var RingNotice;
