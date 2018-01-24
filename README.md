@@ -8,12 +8,14 @@
 
 ### 以下是需要包含的第三方库
 采用glide管理第三方库
-* https://github.com/go-sql-driver/mysql mysql
+* https://github.com/go-sql-driver/mysql mysql驱动库
+* https://github.com/mattn/go-sqlite3 sqlte3驱动库
 * https://github.com/go-xorm/xorm xorm库
 * https://github.com/cihub/seelog 日志库
 * https://github.com/bitly/go-simplejson 动态json库
 * https://github.com/valyala/fasthttp fasthttp
 * https://github.com/kataras/go-sessions 支持原生和fasthttp的session库 
+* https://github.com/solamiku/go-utility 另一个项目仓库：go-工具库
 
 ### 目录结构
 * webserver
@@ -30,12 +32,16 @@
         + components 组件模板-此目录内模板会自动加载为组件
 
 ### Router目录详细说明
-* router有固定init顺序，必须保证0handler.go为第一个编译顺序。其余router在各自init函数内执行。
-
-### 特殊说明
-* go-sessions支持各种存储扩展，但是从实现上来看有点小瑕疵。从session.go里面可以追踪session的管理可以看实现。
+* router有固定init顺序，必须保证allhandler.go为第一个编译顺序。其余router在各自init函数内执行。
 
 ### https相关
 https测试用证书生成方式:
 1. openssl genrsa -out server.key 2048
 2. openssl req -new -x509 -key server.key -out server.crt -days 365
+
+### view模板相关
+* view内模板支持动态更新，开发环境下默认为每次读取模板时按照配置动态解析模板，方便修改html及时表现。真实环境下需要设置Debug为false，这样必须加入动态加载的接口，修改html再进行热更新才能生效。
+
+### 特殊说明
+* go-sessions支持各种存储扩展，但是从实现上来看有点小瑕疵。从session.go里面可以追踪session的管理可以看实现。
+* 在写接口的时候，遇到string参数时，可以预留两个分别为string和[]byte的接口，避免转换类型带来的额外消耗。
