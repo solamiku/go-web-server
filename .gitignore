@@ -3,3 +3,4 @@ config.xml
 log
 server.*
 vendor
+.vscode

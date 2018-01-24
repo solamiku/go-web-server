@@ -64,7 +64,7 @@ func processLogin(ctx *fasthttp.RequestCtx, sess *sessions.Session, u types.DBUs
 	if re {
 		enStr, _ := crypto.DesECB([]byte(u.Username+";"+getPwdMd5Str(u.Passwd)),
 			[]byte(config.G.Server.EncryptKey), true)
-		setCookie(ctx, CKEY_AUTOLOGIN, string(enStr))
+		setCookieBytes(ctx, CKEY_AUTOLOGIN, enStr)
 	} else {
 		delCookie(ctx, CKEY_AUTOLOGIN)
 	}

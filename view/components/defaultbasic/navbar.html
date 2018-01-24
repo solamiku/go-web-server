@@ -1,4 +1,22 @@
 {{define "navbar"}}
+<script type="text/javascript">
+function login() {
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var remember = $("#remember")[0] || {};
+    $.post("/login", {
+        user: username,
+        pass: password,
+        remember: remember.checked,
+    }, function(data) {
+        if (data == "") {
+            location.href = "/";
+        } else {
+            dispatch("login", data);
+        }
+    });
+};
+</script>
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -28,7 +46,9 @@
             <!-- UserLogin-->
             {{if not .login}}
             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text"></p></li>
+                <li>
+                    <p class="navbar-text"></p>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span> <span class="caret"></span>
@@ -37,37 +57,39 @@
                         <li>
                             <div class="row">
                                 <div class="col-md-12">
-                                <!-- Login second -->
-                                <div class="social-buttons">
-                                    <div class="iconSpecial"><i class="glyphicon glyphicon-user"></i>Login</div>
-                                </div>                             
-                                <form class="form" role="form" onsubmit="login(); return false;" accept-charset="UTF-8" id="login-nav">
-                                    <div class="form-group">
-                                        <label class="sr-only" for="username">usename</label>
-                                        <input type="text" class="form-control" id="username" placeholder="username" required>
+                                    <!-- Login second -->
+                                    <div class="social-buttons">
+                                        <div class="iconSpecial"><i class="glyphicon glyphicon-user"></i>Login</div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="sr-only" for="password">password</label>
-                                        <input type="password" class="form-control" id="password" placeholder="password" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Login</button>
-                                    </div>
-                                    <div class="checkbox text-dark">
-                                        <label>
-                                        <input type="checkbox" id="remember" name="remember" checked="true" aria-label="Checkbox for following text input"> Remember me
-                                        </label>
-                                    </div>
-                                </form>
-                              </div>
-                           </div>
+                                    <form class="form" role="form" onsubmit="login(); return false;" accept-charset="UTF-8" id="login-nav">
+                                        <div class="form-group">
+                                            <label class="sr-only" for="username">usename</label>
+                                            <input type="text" class="form-control" id="username" placeholder="username" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">password</label>
+                                            <input type="password" class="form-control" id="password" placeholder="password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                                        </div>
+                                        <div class="checkbox text-dark">
+                                            <label>
+                                                <input type="checkbox" id="remember" name="remember" checked="true" aria-label="Checkbox for following text input"> Remember me
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </li>
             </ul>
             {{else}}
-             <ul class="nav navbar-nav navbar-right">
-                <li><p class="navbar-text"></p></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <p class="navbar-text"></p>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         欢迎您，{{.user}}<span class="caret"></span>
@@ -76,23 +98,25 @@
                         <li>
                             <div class="row">
                                 <div class="col-md-12">
-                                <!-- Login second -->
-                                <div class="social-buttons">
-                                    <div class="iconSpecial"><i class="glyphicon glyphicon-user"></i>{{.user}}</div>
-                                </div>                             
-                                <form class="form" role="form" action="/logout" accept-charset="UTF-8" id="login-nav">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-block">Logout</button>
+                                    <!-- Login second -->
+                                    <div class="social-buttons">
+                                        <div class="iconSpecial"><i class="glyphicon glyphicon-user"></i>{{.user}}</div>
                                     </div>
-                                </form>
-                              </div>
-                           </div>
+                                    <form class="form" role="form" action="/logout" accept-charset="UTF-8" id="login-nav">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-block">Logout</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </li>
             </ul>
             {{end}}
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
 </nav>
 {{end}}

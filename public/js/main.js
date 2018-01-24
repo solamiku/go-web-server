@@ -1,20 +1,3 @@
-function login() {
-	var username = $("#username").val();
-	var password = $("#password").val();
-	var remember = $("#remember")[0] || {};
-	$.post("/login", {
-		user: username,
-		pass: password,
-		remember: remember.checked,
-	}, function(data) {
-		if (data == "") {
-			location.href = "/";
-		} else {
-			dispatch("login", data);
-		}
-	});
-};
-
 function dispatch(type, data) {
 	var jdata = {};
 	try {
