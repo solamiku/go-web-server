@@ -30,7 +30,7 @@ $(function() {
 			// if (hasSubmenu) {
 			// 	$(el).find("ul").slideDown();
 			// }
-			
+
 			//show tab
 			var cur = $(".content-tab-active");
 			var to = $(el.attr("href"));
@@ -78,7 +78,17 @@ $(function() {
 		e.stopPropagation();
 	});
 
-	// $(".content-tab,.content-tab-active").addClass("animated fadeIn");
+	/*panel*/
+	$(".flip").on("click", function(e) {
+		$(".flip").each(function() {
+			var panel = $(this).parent().parent().find(".objpanel");
+			if (this == e.currentTarget) {
+				panel.slideToggle("quick");
+			} else {
+				panel.hide("quick");
+			}
+		});
+	});
 });
 
 var RingNotice;
