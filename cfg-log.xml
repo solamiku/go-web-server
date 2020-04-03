@@ -1,0 +1,15 @@
+<!--https://github.com/cihub/seelog/wiki-->
+<seelog>
+    <outputs formatid="main">
+        <filter levels="info,debug,error,critical">
+            <console />
+            <rollingfile formatid="main" type="size" filename="./log/server.log" maxsize="1024000000" maxrolls="2"/>
+        </filter>
+        <filter levels="error,critical">
+            <file path="./log/server.err.log"/>
+        </filter>
+	</outputs>
+    <formats>
+        <format id="main" format="%Date(2006/01/02) %Time [%Level][%File:%Line(%FuncShort)] %Msg%n"/>
+    </formats>
+</seelog>

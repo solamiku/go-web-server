@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<server>
+        <listen>:1234</listen>
+		<key></key>
+		<https>
+			<open>0</open>
+			<crt></crt>
+			<key></key>
+		</https>
+		<!-- 加密串-->
+		<encrypt_key>10KncU7_</encrypt_key>
+		<!-- 拼接串-->
+		<padding_key>ttest</padding_key>
+		<cookie>
+		    <session_id>local-sessionId</session_id>
+		    <autologin>local-autologin</autologin>
+	    </cookie>
+	</server>
+	
+	<db>
+		<src>users.db</src>
+		<max_conn>50</max_conn>
+	</db>
+	
+	<!-- 组件库模板 -->
+	<template>
+		<views>
+			<view src="./view/index.html">
+				<component>./view/components/indexbasic/header_start.html</component>
+				<component>./view/components/indexbasic/header_end.html</component>
+				<component>./view/components/indexbasic/navbar.html</component>
+			</view>
+			<view src="./view/default.html">
+				<component>./view/components/defaultbasic/header_start.html</component>
+				<component>./view/components/defaultbasic/header_end.html</component>
+				<component>./view/components/defaultbasic/navbar.html</component>
+			</view>
+			<view src="./view/dashboard.html">
+				<component>./view/components/dashboard/header_start.html</component>
+				<component>./view/components/dashboard/header_end.html</component>
+				<component>./view/components/dashboard/navbar.html</component>
+			</view>
+		</views>
+	</template>
+	
+	<!-- 服务器组及详细命令配置-->
+	<servers>
+		<!-- supervisor_detect进行检测时重复次数上限，每一次都按等待当前次数秒钟-->
+		<detect_max>7</detect_max>
+		<!-- 服务器 -->
+		<server name="服务器名称" gamesrv_admin="game服务器后台管理地址" zonesrv_admin="zone服务器后台管理地址">
+			<!--
+				command是具体一个功能的配置，每个功能自动转换成前端的一个按钮。
+				command.tag是唯一索引，用来标记一个command,
+				command.name是前端按钮的名称。
+				command.auth为对应权限，0为默认都可以执行。
+				command.clientp是前端参数列表 - 标签(前端显示):属性(回传后端的名称) 用’;‘分割。
+				
+				args是command下的具体功能,一般一个功能由多个args组成,args除了包含值v以外，其下的extra根据不同类型有不同含义。
+				args.desc是执行功能时回传前端日志框打印信息所用。
+				args.output=控制basicAuth的结果输出，1为输出。
+				args.sleep如果大于0表示该功能后面要等待n秒后继续执行。
+				
+				args.type表示功能的具体类型，对应到后端具体操作。其中：{
+					cmd - 表示系统脚本命令 v 具体脚本; args为脚本所需参数
+					posturl - post请求 v 地址; extra ’逗号‘分割的参数，每两个为一组;
+					basicAuth - 带basicauth的get访问 v地址; extra1 用户名; extra2 密码;
+					gosuv - gosuv后台的https指令请求，其原理为post指定进程的指定命令（eg:‘https://10.2.48.127:9021/api/programs/test/start’）
+					log-表示日志功能 - 日志请求 v 根据参数执行的具体生成日志脚本; extra1 日志存放根目录; extra2 下载日志时的前缀名
+					detect - 进程检测 v 检测的脚本; extra1 匹配信息; extra2 0满足时重试 1不满足时重试; args为脚本所需参数
+				}
+				
+			-->
+			<command tag="#" name="#" admin="1" clientp="">
+				<args type="basicAuth" desc="外网更新" output="0" sleep="20">
+					<v></v>
+					<extra></extra>
+					<extra></extra>
+				</args>
+				<args type="gosuv" desc="gosuv" output="1">
+					<v>https://10.2.48.127:9021/api/programs/(program name)test/(command)start</v>
+                    <extra>username</extra>
+                    <extra>password</extra>
+				</args>
+			</command>
+		</server>
+	</servers>
+	<jumplist>
+		<grp name="城堡2代" auth="0">
+			<opt name="内网淘金901 gamesrv admin">http://10.2.48.241:8008/admin</opt>
+			<opt name="内网淘金901 zonesrv admin">http://10.2.48.241:9009/admin</opt>
+		</grp>
+		<grp name="supervisor" auth="1">
+			<opt name="tj901-admin">http://10.2.48.241:9010/</opt>
+		</grp>
+	</jumplist>
+	<!-- 权限列表，1默认为管理员-->
+	<powers>
+		<power u="1" desc="管理员"></power>
+		<power u="2" desc="服务器功能"></power>
+		<power u="3" desc="推送004"></power>
+		<power u="4" desc="雷霆日志"></power>
+	</powers>
+	<!-- 雷霆日志-->
+    <leitinglog>
+	<cmd>getlog.bat</cmd>
+	    <errcmd>geterr.bat</errcmd>
+	    <!-- 错误日志自动刷新时间间隔-->
+	    <err_interval>600</err_interval>
+	    <!-- 错误日志强制刷新限制间隔-->
+		<!-- 日志路径-->
+		<logpath>chan-log/</logpath>
+		<!-- 错误日志路径-->
+    	<errpath>chan-err/</errpath>
+	    <err_force_interval>30</err_force_interval>
+	    <err dir="arctxsb411" game="game_323"></err>
+	    <err dir="arctxsb511" game="game_301"></err>
+	    <err dir="arctxsb412" game="game_324"></err>
+	    <err dir="arctxsb512" game="game_302"></err>
+	</leitinglog>
+	<dbflush>
+   		<open>1</open>
+  	</dbflush>
+</config>
