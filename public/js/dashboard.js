@@ -512,6 +512,31 @@ function tmplmodify(id, info, tmpl, auths) {
 	});
 }
 
+function deltmpl(obj) {
+	let self = $(obj);
+	let id = self.parent().parent().children().eq(0).html();
+	confirmbox({
+		title: `确认删除删除`,
+		content: `是否删除模板${id}?`
+	}, () => {
+		$.post('/dbflush', {
+			cmd: 'tmpl',
+			id: parseInt(id),
+			del: 1,
+		}, (data) => {
+			let jdata = JSON.parse(data);
+			if (jdata.err) {
+				thint.error(jdata.err, {
+					"timeOut": "5000"
+				});
+			}
+			if (jdata.info) {
+				thint.info(jdata.info);
+			}
+		});
+	});
+}
+
 function newcfg() {
 	cfgmodify(0, '', '', '');
 }
@@ -523,6 +548,31 @@ function modifycfg(obj) {
 	let info = childs.eq(1);
 	let dest = childs.eq(2);
 	cfgmodify(parseInt(id.text()), info.text(), dest.text());
+}
+
+function delcfg(obj) {
+	let self = $(obj);
+	let id = self.parent().parent().children().eq(0).html();
+	confirmbox({
+		title: `确认删除删除`,
+		content: `是否删除数据库配置${id}?`
+	}, () => {
+		$.post('/dbflush', {
+			cmd: 'cfg',
+			id: parseInt(id),
+			del: 1,
+		}, (data) => {
+			let jdata = JSON.parse(data);
+			if (jdata.err) {
+				thint.error(jdata.err, {
+					"timeOut": "5000"
+				});
+			}
+			if (jdata.info) {
+				thint.info(jdata.info);
+			}
+		});
+	});
 }
 
 function cfgmodify(id, info, dest) {

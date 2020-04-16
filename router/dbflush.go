@@ -45,10 +45,18 @@ func dbflush(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
 		}
 		var err error
 		var affect int64
-		if id == 0 {
+		switch id {
+		case 0:
 			affect, err = db.Engine().Table(types.TAB_DBFLUSHTMPL).Insert(&rec)
-		} else {
-			affect, err = db.Engine().Table(types.TAB_DBFLUSHTMPL).Where("id=?", id).Update(&rec)
+		default:
+			del := postArgs.GetInt("del")
+			if del > 0 {
+				_, err = db.Engine().Exec(fmt.Sprintf("delete from %s where id=%v",
+					types.TAB_DBFLUSHTMPL, id),
+				)
+			} else {
+				affect, err = db.Engine().Table(types.TAB_DBFLUSHTMPL).Where("id=?", id).AllCols().Update(&rec)
+			}
 		}
 		if err != nil {
 			seelog.Errorf("update err:%v", err)
@@ -81,10 +89,18 @@ func dbflush(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
 		}
 		var err error
 		var affect int64
-		if id == 0 {
+		switch id {
+		case 0:
 			affect, err = db.Engine().Table(types.TAB_DBFLUSHCFG).Insert(&rec)
-		} else {
-			affect, err = db.Engine().Table(types.TAB_DBFLUSHCFG).Where("id=?", id).Update(&rec)
+		default:
+			del := postArgs.GetInt("del")
+			if del > 0 {
+				_, err = db.Engine().Exec(fmt.Sprintf("delete from %s where id=%v",
+					types.TAB_DBFLUSHCFG, id),
+				)
+			} else {
+				affect, err = db.Engine().Table(types.TAB_DBFLUSHCFG).Where("id=?", id).AllCols().Update(&rec)
+			}
 		}
 		if err != nil {
 			seelog.Errorf("update err:%v", err)
@@ -116,12 +132,19 @@ func dbflush(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
 			SendErr(ctx, "cfg invalid.")
 			return
 		}
+
+		if !IsDBNameInStringArr(dbRec.Info, tmplRec.Affect) {
+			SendErr(ctx, "tmpl not match db")
+			return
+		}
+
 		destDbEngine, err := db.LoadMysqlDb(dbRec.Dest, 1)
 		if err != nil {
 			seelog.Errorf("init dest db engine err:%v", err)
 			SendErr(ctx, "init db err.")
 			return
 		}
+
 		playerRec := struct {
 			Aid int
 			Uid int
@@ -136,6 +159,7 @@ func dbflush(ctx *fasthttp.RequestCtx, sess *sessions.Session) {
 			SendErr(ctx, fmt.Sprintf("aid:%v's uid:%v not equal to:%v", aid, playerRec.Uid, uid))
 			return
 		}
+
 		sql := tmplRec.Tmpl
 		// 去掉注释
 		reg := regexp.MustCompile(`/\*.*\*/`)
@@ -214,4 +238,23 @@ func AutoCreateTbl(tbl interface{}, name string) {
 			seelog.Errorf("create index:%s err1:%v err2:%v", name, err1, err2)
 		}
 	}
+}
+
+func IsDBNameInStringArr(dbname, affect string) bool {
+	ss := strings.Split(strings.TrimSpace(affect), ",")
+	ret := make(map[string]bool, len(ss))
+	for _, s := range ss {
+		if len(s) <= 0 {
+			continue
+		}
+		ret[s] = true
+	}
+	if len(ret) == 0 {
+		return true
+	}
+	if _, ok := ret[dbname]; ok {
+		return true
+	}
+
+	return false
 }

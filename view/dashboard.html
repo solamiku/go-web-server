@@ -216,6 +216,7 @@
                                 <td>{{.Info}}</td>
                                 <td detail="{{.Tmpl}}"><div style="overflow: auto;max-width:800px;max-height: 200px">{{.Tmpl}}</div></td>
                                 <td>{{.Affect}}</td>
+                                <td><button onclick="event.stopPropagation();deltmpl(this);" class="btn">删除</button></td>
                             </tr>
                             {{end}}
                         </tbody>
@@ -237,6 +238,7 @@
                                 <td>{{.Id}}</td>
                                 <td>{{.Info}}</td>
                                 <td>{{.Dest}}</td>
+                                <td><button onclick="event.stopPropagation();delcfg(this);" class="btn">删除</button></td>
                             </tr>
                             {{end}}
                         </tbody>
